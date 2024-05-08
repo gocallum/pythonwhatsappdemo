@@ -31,12 +31,14 @@ Run the Script: Execute the script from the command line or your preferred Pytho
 To run the script from the command line, navigate to the script's directory and run:
 
 ```bash
-python script_name.py
+python generate_messages.py
 ```
 You can also specify an alternative path for the Excel file directly in the command line:
 
+eg... 
+
 ```bash
-python script_name.py "path/to/your/excel/file.xlsx"
+python generate_messages.py "c:\Users\callu\Downloads\Python Workshop form (Responses).xlsx"
 ```
 
 ## Note
