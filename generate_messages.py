@@ -1,5 +1,29 @@
 import pandas as pd
 import sys
+import pywhatkit
+
+
+def send_message(phone_number, message):
+    print(f"Sending message to {phone_number}: {message}")
+    try:
+        # Sending message to receiver using pywhatkit
+        pywhatkit.sendwhatmsg_instantly(phone_number, message, 15, True, 4)  
+        # 15 seconds wait before sending the message. 
+        # True means to close the tab after sending the message.
+        # 4 is the number of seconds to wait before closing the tab. 
+        print("Successfully Sent!")
+
+    except Exception as e:
+        # Handling exception and printing error message
+        print(f"An Unexpected Error: {e}")
+
+def format_full_name(name):
+    # Strip the name of leading/trailing whitespace
+    cleaned_name = name.strip()
+    # Split the name into words and remove extra spaces, then capitalize each part
+    formatted_name = ' '.join(word.capitalize() for word in cleaned_name.split())
+    return formatted_name
+
 
 def generate_message(name, interest_level):
     valid_levels = {
@@ -44,9 +68,11 @@ try:
 
         if pd.notna(full_name) and pd.notna(phone) and pd.notna(interest_level):
             formatted_phone = format_phone_number(phone)
-            message = generate_message(full_name, interest_level)
+            formatted_name = format_full_name(full_name)
+            message = generate_message(formatted_name, interest_level)
             # Uncomment the next line when the WhatsApp API integration is ready
             # send_whatsapp_message(formatted_phone, message)
+            send_message(formatted_phone, message)
             print(message)
         else:
             print(f"Skipping row {index + 1} due to missing information.")
